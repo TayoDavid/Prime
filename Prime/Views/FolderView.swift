@@ -12,9 +12,9 @@ class FolderView: UIView {
     var color: CGColor?
     
     override func draw(_ rect: CGRect) {
-        let width: CGFloat = self.width - 10
-        let height: CGFloat = self.height - 10
-        let slantWidth: CGFloat = width / 2.1
+        let width: CGFloat = floor(self.width) - 10
+        let height: CGFloat = floor(self.height) - 10
+        let slantWidth: CGFloat = floor(width / 2.1)
         let padding: CGFloat = 10
         let radius: CGFloat = 20
         

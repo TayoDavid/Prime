@@ -62,15 +62,23 @@ extension DetailViewController {
         caseContainerView.layer.shadowRadius = 5
         caseContainerView.layer.shadowOpacity = 0.3
         
-        caseContainerView.frame = CGRect(x: view.width - 480, y: 74, width: 480, height: view.height - 74)
-        caseStackView.frame = caseContainerView.bounds
-        
         closeButton.layer.roundCorners(corners: .allCorners, radius: 6)
         viewSummaryButton.layer.roundCorners(corners: .allCorners, radius: 6)
         readJudgementButton.layer.roundCorners(corners: .allCorners, radius: 6)
         refContainerView.layer.roundCorners(corners: .allCorners, radius: 6)
         
         NSLayoutConstraint.activate([
+            
+            caseContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 74),
+            caseContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            caseContainerView.widthAnchor.constraint(equalToConstant: 480),
+            caseContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            caseStackView.topAnchor.constraint(equalTo: caseContainerView.topAnchor),
+            caseStackView.bottomAnchor.constraint(equalTo: caseContainerView.bottomAnchor),
+            caseStackView.leadingAnchor.constraint(equalTo: caseContainerView.leadingAnchor),
+            caseStackView.trailingAnchor.constraint(equalTo: caseContainerView.trailingAnchor),
+            
             caseHeaderView.heightAnchor.constraint(equalToConstant: 100),
             headerLabel.leadingAnchor.constraint(equalTo: caseHeaderView.leadingAnchor, constant: 24),
             headerLabel.centerYAnchor.constraint(equalTo: caseHeaderView.centerYAnchor),

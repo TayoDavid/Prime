@@ -13,6 +13,7 @@ class FolderCollectionViewCell: UICollectionViewCell {
     
     private var folderView: FolderView = {
         let view = FolderView()
+        view.clipsToBounds = true
         return view
     }()
     

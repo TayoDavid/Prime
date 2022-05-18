@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    private let screenWidth: CGFloat = UIScreen.main.bounds.width
+    
     enum CaseSection: Int, CaseIterable {
         case main
         
@@ -94,6 +96,7 @@ class DetailViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .systemBackground
         view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -102,12 +105,14 @@ class DetailViewController: UIViewController {
         view.axis = .vertical
         view.alignment = .fill
         view.spacing = 24
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let caseHeaderView: UIView = {
         let view = UIView()
         view.backgroundColor = Constants.appColor
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -281,8 +286,15 @@ class DetailViewController: UIViewController {
     }
     
     @objc func closeCaseDetail() {
-        self.bellContainer.isHidden = false
-        self.caseContainerView.isHidden = true
+        self.bellContainer.alpha = .zero
+        
+        self.caseContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
+        
+        UIView.animate(withDuration: 1.0, delay: .zero, options: .curveEaseInOut, animations: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.bellContainer.alpha = 1.0
+            strongSelf.caseContainerView.transform = CGAffineTransform(translationX: strongSelf.screenWidth, y: 0)            
+        }, completion: nil)
     }
     
 }
@@ -358,7 +370,18 @@ extension DetailViewController: UINavigationBarDelegate {
 
 extension DetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.bellContainer.alpha = 1.0
+        
+        self.caseContainerView.transform = CGAffineTransform(translationX: screenWidth, y: 0)
+        
         self.caseContainerView.isHidden = false
-        self.bellContainer.isHidden = true
+        
+        UIView.animate(withDuration: 1.0, delay: .zero, options: .curveEaseInOut, animations: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.caseContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
+            strongSelf.bellContainer.alpha = .zero
+        }, completion: nil)
+        
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CaseItem: Hashable{
+struct CaseItem: Hashable {
     
     let identifier = UUID()
     let date: Date
